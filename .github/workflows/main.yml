@@ -1,19 +1,26 @@
-name : Scan code with Snyk
-on : push
-j o b s :
-s e c u r i t y :
-runs−on : ubuntu−l a t e s t
-s t e p s :
-− u s e s : a c t i o n s / checkout@master
-− name : Run Snyk t o check f o r v u l n e r a b i l i t i e s
-u s e s : snyk / a c t i o n s / node@master
-c o n t i n u e−on−e r r o r : t r u e # To make s u r e t h a t SARIF upload g e t s c a l l e d
-env:
-SNYK_TOKEN: $ {{ s e c r e t s .SNYK}}
-with :
-command : t e s t
-a r g s : −−s a r i f −f i l e −output=snyk . s a r i f −−a l l −p r o j e c t s
-− name : Upload r e s u l t t o GitHub Code Scanning
-u s e s : g i t h u b / c o d e q l −a c t i o n / upload−s a r i f @ v 2
-with :
-s a r i f _ f i l e : snyk . s a r i f
+name: Scan code with Snyk
+
+on:
+  push:
+  
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK }}
+        with:
+          command: test
+          args: --sarif-file-output=snyk.sarif --all-projects
+
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: snyk.sarif
+
