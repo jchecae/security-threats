@@ -18,6 +18,21 @@ jobs:
         with:
           command: test
           args: --sarif-file-output=snyk.sarif --all-projects
+          - name: Check security status
+        run: |
+          # Assuming Snyk generates a report file in SARIF format
+          if jq -e '.runs[0].results | any(.level == "error" or .level == "warning")' snyk.sarif; then
+            echo "Security issues found. Skipping archive."
+            exit 1
+          else
+            echo "No security issues. Proceeding to archive."
+          fi
+
+      - name: Archive code if safe
+        if: success() # Only run this step if the previous steps were successful
+        run: |
+          zip -r code_archive.zip .
+          echo "Code archived successfully."
 
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
