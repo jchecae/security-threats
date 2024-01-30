@@ -24,9 +24,11 @@ jobs:
           # Assuming Snyk generates a report file in SARIF format
           if jq -e '.runs[0].results | any(.level == "error" or .level == "warning")' snyk.sarif; then
             echo "Security issues found. Skipping archive."
+            echo "No ZIP file will be generated."
             exit 1
           else
             echo "No security issues. Proceeding to archive."
+            echo "ZIP file will be generated."
           fi
 
       - name: Archive code if safe
