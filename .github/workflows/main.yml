@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@master
 
-        - name: Run Snyk to check for code vulnerabilities
+      - name: Run Snyk to check for code vulnerabilities
         uses: snyk/actions/node@master
         continue-on-error: true # To make sure that SARIF upload gets called
         env:
