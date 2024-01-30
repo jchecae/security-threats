@@ -18,7 +18,8 @@ jobs:
         with:
           command: test
           args: --sarif-file-output=snyk.sarif --all-projects
-          - name: Check security status
+
+      - name: Check security status
         run: |
           # Assuming Snyk generates a report file in SARIF format
           if jq -e '.runs[0].results | any(.level == "error" or .level == "warning")' snyk.sarif; then
@@ -38,4 +39,3 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
-
