@@ -45,3 +45,7 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
+          
+      - name: List Files in Working Directory
+        run: |
+          ls -R
