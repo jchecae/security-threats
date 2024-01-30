@@ -19,6 +19,10 @@ jobs:
           command: test
           args: --sarif-file-output=snyk.sarif --all-projects
 
+      - name: List Files in Working Directory
+        run: |
+          ls -R
+
       - name: Check security status
         run: |
           # Assuming Snyk generates a report file in SARIF format
