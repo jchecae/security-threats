@@ -44,14 +44,14 @@ jobs:
       - name: Create zip
         uses: ihiroky/archive-action@v1
         with:
-          root_dir: root
+          root_dir: $GITHUB_WORKSPACE root
           file_path: output.zip 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: root-zip-artifact
-          path: root
+          path: $GITHUB_WORKSPACE root/output.zip
 
       - name: List contents of the current directory
         run: ls
