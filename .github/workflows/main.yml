@@ -12,7 +12,7 @@ jobs:
 
       - name: Run Snyk to check for code vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true # To make sure that SARIF upload gets called
+        continue-on-error: true # No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
@@ -21,12 +21,12 @@ jobs:
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true # To make sure that SARIF upload gets called
+        continue-on-error: true #  No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
           command: test
-          args: --sarif-file-output=snyk.sarif --all-projects --fail-fast
+          args: --sarif-file-output=snyk.sarif --all-projects 
           
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v2
@@ -37,3 +37,9 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snykcode.sarif
+
+      - name: Create zip
+        uses: ihiroky/archive-action@v1
+        with:
+          root_dir: hoge
+          file_path: output.zip 
