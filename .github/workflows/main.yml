@@ -38,6 +38,9 @@ jobs:
         with:
           sarif_file: snykcode.sarif
 
+      - name: List contents of the current directory
+          run: ls
+
       - name: Create zip
         uses: ihiroky/archive-action@v1
         with:
@@ -49,4 +52,7 @@ jobs:
         with:
           name: output
           path: output.zip
+
+      - name: List contents of the current directory
+          run: ls
       
