@@ -12,7 +12,7 @@ jobs:
 
       - name: Run Snyk to check for code vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true # No se continua si existen vulnerabilidades
+        continue-on-error: false # No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
@@ -21,7 +21,7 @@ jobs:
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true #  No se continua si existen vulnerabilidades
+        continue-on-error: false #  No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
@@ -38,9 +38,6 @@ jobs:
         with:
           sarif_file: snykcode.sarif
 
-      - name: List contents of the current directory
-        run: ls
-
       - name: Create zip
         uses: ihiroky/archive-action@v1
         with:
@@ -50,9 +47,6 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: root-zip-artifact
+          name: zip-artifact
           path: $GITHUB_WORKSPACE/output.zip
 
-      - name: List contents of the current directory
-        run: ls
-      
