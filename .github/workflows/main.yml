@@ -42,16 +42,15 @@ jobs:
         run: ls
 
       - name: Create zip
-        uses: ihiroky/archive-action@v1
+        uses: montudor/action-zip@v0.3
         with:
-          root_dir: root
-          file_path: output.zip 
+          args: zip -r root.zip root
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: output
-          path: output.zip
+          name: root-zip-artifact
+          path: root.zip
 
       - name: List contents of the current directory
         run: ls
