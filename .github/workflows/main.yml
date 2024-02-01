@@ -43,3 +43,10 @@ jobs:
         with:
           root_dir: hoge
           file_path: output.zip 
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: output
+          path: output.zip
+      
