@@ -44,7 +44,7 @@ jobs:
       - name: Create zip
         uses: ihiroky/archive-action@v1
         with:
-          root_dir: $GITHUB_WORKSPACE/temp
+          root_dir: $GITHUB_WORKSPACE/my-directory
           file_path: output.zip 
 
       - name: Upload artifact
