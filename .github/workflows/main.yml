@@ -38,10 +38,12 @@ jobs:
         with:
           sarif_file: snykcode.sarif
 
-      - name: Copy Repository Contents
-        run: mkdir temp/
-             cp -r * temp/
+      - name: Create Directory
+        run: mkdir temp
 
+      - name: Copy Repository Contents
+        run: cp -r * temp/
+        
       - name: Create zip
         uses: ihiroky/archive-action@v1
         with:
