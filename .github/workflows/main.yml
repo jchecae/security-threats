@@ -38,14 +38,10 @@ jobs:
         with:
           sarif_file: snykcode.sarif
 
-      - name: Create zip
-        uses: ihiroky/archive-action@v1
-        with:
-          root_dir: $GITHUB_WORKSPACE
-          file_path: output.zip 
+
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: zip-artifact
-          path: output.zip
+          path: $GITHUB_WORKSPACE
