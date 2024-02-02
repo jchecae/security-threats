@@ -12,7 +12,7 @@ jobs:
 
       - name: Run Snyk to check for code vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true # No se continua si existen vulnerabilidades
+        continue-on-error: false # No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
@@ -21,14 +21,14 @@ jobs:
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true #  No se continua si existen vulnerabilidades
+        continue-on-error: false #  No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
           command: test
           args: --sarif-file-output=snyk.sarif --all-projects 
           
-      - name: Upload result to GitHub Code Scanning
+      - name: Upload result to GitHub Code Scanning  
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: snyk.sarif
@@ -38,16 +38,18 @@ jobs:
         with:
           sarif_file: snykcode.sarif
 
-      - name: Create Directory
+      - name: Create Directory # creamos un directorio y copiamos todo el repositorio en él
         run: mkdir my-directory && rsync -av --exclude=my-directory/ * my-directory/
         
-      - name: Create zip
+      - name: Create zip # creamos el archivo .zip del directorio 
         uses: ihiroky/archive-action@v1
         with:
           root_dir: $GITHUB_WORKSPACE/my-directory
           file_path: output.zip 
 
-      - name: Upload artifact
+      - name: Upload artifact # subimos el .zip como artifact para poder descargarlo 
+                              # Se podría realizar directamente la subida como artifact del directorio 
+                              # el resultado continuaría siendo un .zip del proyecto
         uses: actions/upload-artifact@v2
         with:
           name: zip-artifact
