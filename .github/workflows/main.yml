@@ -42,10 +42,10 @@ jobs:
         uses: ihiroky/archive-action@v1
         with:
           root_dir: $GITHUB_WORKSPACE/.vscode
-          file_path: ./output.zip 
+          file_path: output.zip 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: zip-artifact
-          path: $GITHUB_WORKSPACE/.vscode/extensions.json
+          path: output.zip
