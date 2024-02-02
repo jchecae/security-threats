@@ -38,10 +38,17 @@ jobs:
         with:
           sarif_file: snykcode.sarif
 
+      - name: Copy Repository Contents
+        run: cp -r * temp/
 
+      - name: Create zip
+        uses: ihiroky/archive-action@v1
+        with:
+          root_dir: $GITHUB_WORKSPACE/temp
+          file_path: output.zip 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: zip-artifact
-          path: $GITHUB_WORKSPACE
+          path: output.zip
