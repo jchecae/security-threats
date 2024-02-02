@@ -41,12 +41,12 @@ jobs:
       - name: Create zip
         uses: ihiroky/archive-action@v1
         with:
-          root_dir: $GITHUB_WORKSPACE
+          root_dir: ${{ github.action_path }}
           file_path: output.zip 
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: zip-artifact
-          path: $GITHUB_WORKSPACE/output.zip
+          path: ${{ github.action_path }}/output.zip
 
