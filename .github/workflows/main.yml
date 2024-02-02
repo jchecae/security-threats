@@ -41,7 +41,7 @@ jobs:
       - name: Create zip
         uses: ihiroky/archive-action@v1
         with:
-          root_dir: $GITHUB_WORKSPACE/.vscode
+          root_dir: $GITHUB_WORKSPACE
           file_path: output.zip 
 
       - name: Upload artifact
