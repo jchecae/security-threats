@@ -12,7 +12,7 @@ jobs:
 
       - name: Run Snyk to check for code vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true # No se continua si existen vulnerabilidades
+        continue-on-error: false # No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
@@ -21,7 +21,7 @@ jobs:
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
-        continue-on-error: true #  No se continua si existen vulnerabilidades
+        continue-on-error: false #  No se continua si existen vulnerabilidades
         env:
           SNYK_TOKEN: ${{ secrets.SNYK }}
         with:
